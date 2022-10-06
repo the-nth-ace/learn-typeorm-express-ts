@@ -1,0 +1,27 @@
+{
+  "name": "learn-typeorm",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon --watch ./**/*.ts --exec pnpm ts-node src/index.ts",
+    "migrate:generate": "pnpm exec typeorm-ts-node-commonjs -d ./src/common/db/DataSource.ts migration:generate",
+    "migrate:generate:test": "pnpm exec typeorm-ts-node-commonjs -d ./src/common/db/TestDataSource.ts migration:generate",
+    "migrate:run": "pnpm exec typeorm-ts-node-commonjs -d ./src/common/db/DataSource.ts migration:run",
+    "migrate:run:test": "pnpm exec typeorm-ts-node-commonjs -d ./src/common/db/TestDataSource.ts migration:run"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@types/express": "^4.17.14",
+    "@types/node": "^18.8.2",
+    "express": "^4.18.1",
+    "pg": "^8.8.0",
+    "reflect-metadata": "^0.1.13",
+    "ts-node": "^10.9.1",
+    "typeorm": "^0.3.10",
+    "typescript": "^4.8.4"
+  }
+}
