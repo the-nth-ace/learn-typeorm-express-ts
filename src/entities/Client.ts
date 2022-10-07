@@ -3,9 +3,17 @@ import {Person} from "./utils/Person";
 import {Transaction} from "./Transaction";
 import {Banker} from "./Banker";
 
+export class ClientDTo{
+    first_name: string;
+    last_name: string;
+    email: string;
+    card_number: string;
+}
+
+
 @Entity('client')
 export class Client extends Person {
-    @Column({
+@Column({
         default: true,
         name: "active"
     })
