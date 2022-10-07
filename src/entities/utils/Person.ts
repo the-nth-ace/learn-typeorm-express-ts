@@ -1,45 +1,45 @@
 import {
-    BaseEntity,
-    Column,
-    Entity,
-    CreateDateColumn,
-    UpdateDateColumn,
-    PrimaryGeneratedColumn
+  BaseEntity,
+  Column,
+  Entity,
+  CreateDateColumn,
+  UpdateDateColumn,
+  PrimaryGeneratedColumn,
 } from "typeorm";
 
 @Entity()
 export class Person extends BaseEntity {
-    @PrimaryGeneratedColumn()
-    id: number
+  @PrimaryGeneratedColumn()
+  id: number;
 
-    @Column()
-    first_name: string;
+  @Column()
+  first_name: string;
 
-    @Column()
-    last_name: string;
+  @Column()
+  last_name: string;
 
-    @Column({
-        unique: true
-    })
-    email: string;
+  @Column({
+    unique: true,
+  })
+  email: string;
 
-    @Column({
-        unique: true,
-        length: 10
-    })
-    card_number: string
+  @Column({
+    unique: true,
+    length: 10,
+  })
+  card_number: string;
 
-    @Column({
-        type: "numeric"
-    })
-    balance: number
+  @Column({
+    type: "numeric",
+    default: 0,
+  })
+  balance: number;
 
-    @CreateDateColumn()
-    created_at: Date
+  @CreateDateColumn()
+  created_at: Date;
 
-    @UpdateDateColumn()
-    updated_at: Date
-
+  @UpdateDateColumn()
+  updated_at: Date;
 }
 
 /*

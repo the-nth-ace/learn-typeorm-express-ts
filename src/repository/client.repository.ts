@@ -1,48 +1,41 @@
-import {AppDataSource} from "../common/db/DataSource";
-import {Repository} from "typeorm";
-import {Client, ClientDTo} from "../entities/Client";
+import { AppDataSource } from "../common/db/DataSource";
+import { Repository } from "typeorm";
+import { Client, ClientDTo } from "../entities/Client";
 
 export class ClientRepository {
-    public _repo: Repository<Client>
+  public _repo: Repository<Client>;
 
-    constructor() {
-        this._repo = AppDataSource.getRepository(Client)
+  constructor() {
+    this._repo = AppDataSource.getRepository(Client);
+  }
+
+  async findClientById(id: number) {
+    return await this._repo.findOneBy({ id });
+  }
+
+  async findManyClients() {
+    return await this._repo.find();
+  }
+
+  async createClient(clientData: ClientDTo) {
+    try {
+      const client = await this._repo.insert(clientData);
+      return await this._repo.findOneBy({ email: clientData.email });
+    } catch (err) {
+      console.log(err);
+      throw new Error("Something went wrong");
     }
+  }
 
-    async findClientById(id: string) {
-        const clientId = parseInt(id)
-        const client = await this._repo.findOneBy({id: clientId})
+  async deleteClient(id: number) {
+    await this._repo.delete(id);
+  }
+
+  async updateClient(id: number, clientUpdateData: Partial<ClientDTo>) {
+    try {
+      await this._repo.update(id, { ...clientUpdateData });
+    } catch {
+      //    raise some error
     }
-
-    async findManyClients() {
-        return await this._repo.find()
-    }
-
-    async createClient(clientData: ClientDTo) {
-        try {
-            const client = await this._repo.insert(clientData)
-            return await this._repo.findOneBy({email: clientData.email})
-        } catch (err) {
-            throw new Error('Something went wrong')
-        }
-
-    }
-
-    async deleteClient(id: string){
-        const clientId = parseInt(id)
-        await this._repo.delete(clientId)
-
-    }
-
-    async updateClient(id: string, clientUpdateData: Partial<ClientDTo>){
-        const clientId = parseInt(id)
-        try {
-            await  this._repo.update(clientId,{...clientUpdateData} )
-
-        } catch {
-        //    raise some error
-        }
-    }
-
-
+  }
 }
